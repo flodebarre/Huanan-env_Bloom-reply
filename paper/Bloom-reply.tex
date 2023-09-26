@@ -1,0 +1,213 @@
+\documentclass[11pt]{article}
+
+\usepackage[a4paper, total={6in, 10in}]{geometry}
+
+% Fonts and language
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amsfonts,amssymb}
+%\usepackage{mathpazo}
+%\usepackage[adobe-utopia]{mathdesign}
+\usepackage[default,regular, bold]{sourceserifpro}
+
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{maincol}{RGB}{0, 110, 150}
+\definecolor{linkcol}{RGB}{0, 0, 0}
+
+\usepackage[scaled]{helvet}
+\usepackage[T1]{fontenc}
+\usepackage{url}
+\usepackage[colorlinks=true, allcolors=linkcol]{hyperref}
+
+\usepackage{natbib}
+
+\usepackage{cleveref} % For refs to footnotes
+\usepackage{multirow}
+ 
+
+% Sections
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\large\bfseries\color{maincol}}{\thesection.}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\itshape}{\thesubsubsection.}{1em}{}
+
+
+% TItle
+\makeatletter
+    \def\@maketitle{%
+  \newpage
+  \null
+  \vskip 2em%
+%  \begin{center}%
+  \let \footnote \thanks
+   \noindent {\Large \bfseries \color{maincol} \@title \par}%
+    \vskip 1.5em%
+    \noindent {\normalsize
+%      \lineskip .5em%
+%      \begin{tabular}[t]{c}%
+        \@author
+%      \end{tabular}
+	\par}%
+    \vskip 0.5em%
+    %{\large \@date}%
+    % Trick to use date field to put affiliations
+   {\scriptsize \noindent \@date \par
+   }
+ % \end{center}%
+  \par
+  \vskip 1.5em}
+\makeatother
+
+%
+\usepackage{lineno}
+
+
+\input{commands_outputR.tex}
+
+\def \sct {\mbox{SARS-CoV-2}}
+
+\title{Imperfect data can still provide insights: \sct{} and animals in metagenomic samples from the Huanan market}
+\author{F. D\'ebarre}
+\date{Institute of Ecology and Environmental Sciences, CNRS UMR 7618, Sorbonne Université, UPEC, IRD, INRAE, Paris, France \newline https://orcid.org/0000-0003-2497-833X \newline Corresponding author: florence.debarre@normalesup.org}
+\begin{document}
+
+\maketitle
+
+\linenumbers
+
+
+\section*{Abstract}
+While the exact context of the emergence of \sct{} remains uncertain, data accumulated since 2020 now provide a more precise picture of Wuhan’s Huanan Seafood Wholesale Market, to which the earliest clusters of human cases of Covid-19 were linked. After the market closed on January 1st 2020, teams from the Chinese Center for Disease Control and Prevention collected environmental samples, and sequenced them. Metagenomic sequencing data from these samples were shared in early 2023. These data confirmed that non-human animals susceptible to \sct{} were present in the market before it closed, but also that these animals were located in the side of the market with most human cases, and in a corner with relatively more \sct{}-positive environmental samples. The environmental samples were however collected after abundant human-to-human transmission had taken place in the market, precluding the identification of a potential non-human animal host. In spite of this acknowledged limitation, Jesse Bloom recently investigated associations between \sct{} and non-human animals, concluding that his analyses could not indicate whether animals were infected by \sct. Here I explain why such analyses cannot identify infected animals, and I rebut the suggestion that such analyses had been encouraged. I show that Bloom’s investigation ignores the temporal and spatial structure of the data, which led to incorrect interpretations. Finally, I show that criteria put forward to question the role of raccoon dogs as source of environmental \sct{} would also exclude humans. There needs to be clear distinctions between scientific studies and news articles written about them, even for topics with broad media interest. 
+
+\section{Introduction}
+
+The question of the origin of the Covid-19 pandemic is inherently scientific, even though its broader political context and implications cannot be ignored \citep{GostinGronvall2023NEJM}. Uncertainty remains regarding the exact conditions of \sct{}’s emergence and spillover to humans. The level of available details and the amount of data on the early days of Covid-19 are however remarkable compared to other emerging diseases, and in particular to SARS \citep{Xu2004EID, Keusch2022PNAS}.
+
+In early 2020, a team from the Chinese Center for Disease Control and Prevention (CCDC) collected environmental samples in Wuhan’s Huanan Seafood Wholesale Market (hereafter ``Huanan market''), to which cases of a new pneumonia were linked \citep{Chen2020Lancet, Worobey2021Science}. The market was sampled multiple times over several weeks, with various sampling strategies \citep{WHO2021}. Results from the first two sampling trips, which took place on January 1st and 12th 2020, were communicated to the press at the end of January 2020\footnote{References that are not scientific articles or reports are presented as footnotes.}$^,$\footnote{e.g., \url{http://www.xinhuanet.com/english/2020-01/27/c_138735677.htm}, \url{https://news.cgtn.com/news/2020-01-27/Experts-confirm-Wuhan-seafood-market-was-source-of-novel-coronavirus--NAHPUtsPgA/index.html}}, and were detailed in a report, which was not public at the time\footnote{The report was leaked later in 2020; \url{https://www.epochtimes.com/gb/20/5/31/n12150755.htm}} \citep{Wu2020CCDC}. When these first results were reported, the CCDC team had collected 585 samples, of which 33 had been found positive for the new coronavirus. The positive samples were in their vast majority (31/33) from the west side of the market, where wildlife was sold. The potential role of wildlife sold at the market was explicitly mentioned by CCDC \citep{Wu2020CCDC, Tan2020CCDC}. 
+
+The existence of metagenomic sequencing data related to the Huanan market environmental samples was mentioned in the report of the 2021 Joint World Health Organization (WHO)--China mission \citep[p.97]{WHO2021}.  However, only results on \sct{} detection were reported, and raw data were not publicly shared. 
+
+The first results on the metagenomic content of the market samples were provided in a preprint by Liu et al. in early 2022 \citep{Liu2022RS}. The corresponding raw data were not shared either at the time. The preprint did not describe in detail the contents of the environmental samples; humans were the only species named. A figure (Figure~4A in \citet{Liu2022RS}) however indicated that other species besides humans had been detected in the data. In the absence of labels on the figure, of any description in the preprint's main text, and of raw data, the identities of these species were unknown to the readers. In addition, the figure itself was criticized both for its form and its interpretation. It displayed Pearson correlation as a function of Spearman correlation, i.e. a correlation of correlations, and did not include error bars, therefore giving a false impression of certainty. The figure was used to conclude that humans were the source of \sct{} in the Huanan market, a conclusion that could not be drawn from the analysis performed. 
+
+Multiple researchers publicly regretted the absence of raw data, and some, led by Jesse Bloom, even organized a petition to ask for the publication of these data\footnote{Twitter discussion, February 27th 2022; \url{https://x.com/jbloom_lab/status/1497743165226303489}}.
+
+On January 30th 2023, a subset of the raw sequencing data became public on GISAID\footnote{The date range was delimited by comparing metadata downloads from various time points, and it was confirmed by GISAID to a journalist; \url{https://www.vanityfair.com/news/2023/06/raccoon-dog-george-gao-covid-origins}}. The submission date displayed on GISAID was however in June 2022. The new data therefore appeared down in the database, and they apparently remained unseen for weeks. I first came across the data by chance on March 4th 2023, while looking for related information in the database. In the table of results on GISAID's website, the records were reported as being 3-nucleotide long; the FASTA field only contained “\texttt{AAA}”. Puzzled, and initially erroneously thinking that the newly found accessions were just placeholders awaiting data, I notified over the course of the next few days some colleagues of my discovery. These colleagues included Alex Crits-Christoph (on March 4th) and Jesse Bloom (on March 9th). After a brief email exchange with Jesse Bloom, I noticed the presence of FASTQ buttons on GISAID, indicating that raw data were in fact available. I communicated this new information to Alex Crits-Christoph and Jesse Bloom, together with the accession numbers of the data. Of these two, only Alex Crits-Christoph showed immediate interest in the data, downloaded them and started analyzing them. 
+
+The dataset shared on GISAID at the time corresponded to 50 samples from the Huanan market, and data were available for 49 of them \citep{ACC2023Zenodo}. The dataset only contained samples that had been tested positive for \sct{}. 
+
+Because previous work \citep{Worobey2022Science} had identified a specific market stall with an unusual number of samples reported as positive for \sct{}, the initial analysis focused on the five available samples from this stall. \citet{Worobey2022Science} had made the direct prediction that \sct{} susceptible wildlife may be present and detectable within the sequencing samples from this stall. The very first result we obtained with the data downloaded from GISAID was the detection of raccoon dog mitochondrial DNA (mtDNA) in the data from sample Q61. This species, shown to be susceptible to \sct{} and able to transmit it \citep{Freuling2020EID}, was not named by \citet{Liu2022RS}, and was not listed as a species present in the market in the 2021 WHO-China report \citep{WHO2021}. A study published in the summer 2021 had identified them as animals sold in Wuhan markets \citep{Xiao2021SciRep}, but the results combined multiple markets and all the 31 months during which the study had been conducted, leading to the speculation that the animals may have been absent in the late Fall 2019. Finding genetic traces of these animals was therefore an important result. This initial result was later confirmed: raccoon dog reads were abundant across wildlife stall samples, and particularly in wildlife stalls positive for \sct{} than any other mammal \citep{ACC2023bioRxiv}.
+
+In the early hours of March 11th 2023, the data could not be accessed on GISAID anymore \citep[foreword]{ACC2023Zenodo}, and would remain inaccessible until March 29th 2023. 
+
+The discovery of the data and further initial results were communicated to the WHO's Scientific Advisory Group for the Origins of Novel Pathogens (SAGO). Shortly after an online meeting with SAGO on March 14th, a journalist contacted one member of our group\footnote{Later publicly confirmed by a tweet; \url{https://archive.ph/2MDB9}}, thereby revealing to us that the news had leaked to the press. This first journalist only knew of generic points communicated to SAGO, and not of the context of the discovery of the data. At that time, we had only generated some figures that were presented to the committee, but our analyses were not finalized, and we did not yet have a written report to share. We were not ready, nor willing, to have our results publicized. Another journalist aware of the news however went ahead, managing to convince some of us to be interviewed. Importantly it was not even clear to some of those who were interviewed that the news would be published before our report was ready. The scoop was published on March 16th with a flashy title misrepresenting our results\footnote{\label{foot:wu}Katherine J. Wu, \textit{The Strongest Evidence Yet That an Animal Started the Pandemic}; \url{https://www.theatlantic.com/science/archive/2023/03/covid-origins-research-raccoon-dogs-wuhan-market-lab-leak/673390/}\par}. I had explicitly and at multiple times declined to be interviewed by this journalist, and yet I ended up being quoted in a revised version of the article –- the quote was taken, without consent, from an email asking for a correction that I sent two days after the article first came out. This illustrates that scientists have no control over what journalists write, and it is therefore important to differentiate a scientific article from what journalists may write about it.
+
+We published a report a few days later \citep{ACC2023Zenodo}, accompanied by a foreword detailing the peculiar context in which the work was done. In it, we explained why the results could not be reproduced, as data were no longer available. The report focused on the description of animals susceptible to \sct{} in the market environmental sequences, including but not limited to raccoon dogs. This report contained a paragraph (pp.13-14) preemptively listing issues that would be met if attempting to conduct a correlation analysis if the whole dataset ever became available.
+ 
+Nine days later, Liu et al. published an updated version of their study on ChinaXiv \citep{Liu2023ChinaXiv}, and made their whole dataset available on public repositories (NGDC and SRA). There were now sequence data available for 172 samples (159 from the market, 3 from related warehouses, 10 from sewage in the area). This new dataset notably now included samples tested negative for \sct{}. In their updated preprint, which was soon accepted in Nature, \citet{Liu2023Nature} briefly described animal species detectable in the data. The Figure~4A of their preprint was replaced after peer review by supplementary tables of tests of co-presence (Supplementary Table 9) and quantitative comparisons of animal contents in PCR-positive vs. PCR-negative samples (Supplementary Table 7). 
+
+Finally, in April 2023, \citet{Bloom2023bioRxiv} published a preprint analyzing the sequence data from \citet{Liu2023Nature}, eventually published in Virus Evolution. In the article, \citet{Bloom2023VE} reproduced versions of \citet{Liu2022RS}'s Figure~4A, and concluded that the analysis did not allow for the identification of infected animals. While I agree with the conclusion –- and more generally, with the fact that it is not possible to prove with these data that animals were infected, I would like to point out several important issues with Bloom's article. 
+
+\section{Results}
+
+\subsection{Questioning the motivation for doing an analysis that we knew would fail}
+
+There are statistical errors, technical limitations, experimental imbalances, and conceptual failings behind the correlation analyses as described in \citet{Bloom2023VE}, rendering them ultimately meaningless. Several conceptual issues were noted \textit{a priori} \citep{ACC2023Zenodo}, and were further described in our reply to Jesse Bloom's preprint on bioRxiv\footnote{\label{foot:reply}Reply posted on bioRxiv; \url{http://disq.us/p/2u34bgh}.}, and in a recent preprint \citep{ACC2023bioRxiv}. 
+
+It is not possible to prove that non-human animals were infected because the Huanan market samples were collected too late. This inescapable limitation was already identified by Jesse Bloom in 2022\footnote{As noted publicly in a tweet; \url{https://x.com/jbloom_lab/status/1497627222206664706}.}, and clearly stated in \citet{Bloom2023VE}. (For simplicity, in the rest of the text, ``animals'' means non-human animals). There were a lot of human cases in the market, and most \sct{} detected in the market are definitely of human origin. Given that it is impossible, with these data, to distinguish between viruses shed by humans and viruses shed by animals, any animal signal at the market scale was covered by human signal before the samples were collected. A correlation at the scale of the whole market cannot therefore identify infected animals, if there were any.
+
+Even if the samples had been collected in the very early days of \sct{}'s presence in the Huanan market, a correlation analysis could have failed to identify the source species. Such an analysis indeed implicitly assumes that most animals of a species were infected. Different stalls selling the same species did not necessarily have the same suppliers. This was for instance the case for bamboo rats, which came from origins as different as Hubei, Guangxi, Hunan, Yunnan provinces \citep[annexes pp.189--191]{WHO2021}. If only a fraction of animals of a given species were infected, a correlation analysis may fail to identify the species as the source. We observe this phenomenon in the market data with another virus, H3N2 influenza virus \citep{ACC2023bioRxiv}. This human virus is present in a single stall in the market, probably because only a limited number of humans had this flu virus in Fall 2019 in the market. A market-wide correlation with human reads is not significant, because many other humans in the market were not infected (log proportion of total reads, \ACCAllHNHS{}; data: \citet{ACC2023bioRxiv}). This shows that even if the samples had been collected much earlier, before the many human infections that followed, an animal source of \sct{} would still probably not have been identifiable with a correlation analysis. 
+
+Then why conduct a market-wide correlation analysis in the first place, when it is acknowledged that the samples were collected comparatively too late for such an analysis to be insightful? A motivation is given by \citet{Bloom2023VE}: The absence of labels in \citet{Liu2022RS}'s Figure~4A had been widely noted (\citet{Bloom2023VE} cited three news articles by Jon Cohen to back up the claim), but neither \citet{ACC2023Zenodo} nor \citet{Liu2023Nature} had ``addressed this omission''; \citet{Bloom2023VE} study is here ``[t]o remedy this omission''. 
+
+This is a misrepresentation of the reasons why the absence of labels was noted. None of the scientists quoted by Jon Cohen, nor even Jon Cohen himself (personal communications and contemporary statements\footnote{Twitter thread by Andrew Rambaut, 2022-02-26; \url{https://archive.ph/tuhgM}}), meant that it would be worth reproducing Figure~4A. The figure was only used as evidence that species were undescribed in \citet{Liu2022RS}. This omission was addressed by \citet{ACC2023Zenodo} and \citet{Liu2023Nature}, who described and quantified animals reads detectable in the metagenomic sequence data. There is just no good rationale for conducting a market-wide univariate correlation analysis to identify a potential infected non-human animal with these data. 
+
+In his article, \citet{Bloom2023VE} emphasized that his results were inconsistent with ``media articles that emphasized the co-mingling of raccoon dog and viral material (Wu 2023; Mueller 2023)''\footnote{Wu's article is referenced in \cref{foot:wu}; Benjamin Mueller, \textit{New Data Links Pandemic’s Origins to Raccoon Dogs at Wuhan Market} \url{https://www.nytimes.com/2023/03/16/science/covid-wuhan-market-raccoon-dogs-lab-leak.html}}. It seems that countering these media articles was an important motivation for Bloom's study. However, the meaning of co-mingling in these articles is mischaracterized by Bloom: it was not meant at the scale of the whole market, but in a specific stall. Both Wu's and Mueller's articles emphasized the fact that raccoon dog genetic material and \sct{} had been found together in a sample (Q61). A quote in Mueller's article clarified that the data ``can't prove definitely there was an infected animal at that stall'', and Mueller specified that ``even if a raccoon dog had been infected, it would not be clear that the animal had spread the virus to people'' -- i.e., Bloom's conclusions. Wu used the word ``co-mingled'' in ``Finding the genetic material of virus and mammal so closely co-mingled—enough to be extracted out of a single swab—isn't perfect proof'', and this sentence was clearly again about sample Q61. Neither of these articles was about market-wide co-presence, so it is incorrect to suggest that a market-wide analysis contradicts Mueller's and Wu's articles. 
+
+Bloom's study itself was misinterpreted by commenters and misrepresented in the media, notably as evidence that the raccoon dogs were not infected (instead of as absence of evidence that they were). This and the confusion between our report and news articles that preceded it led to particularly vitriolic attacks on our own work (e.g., ``Why Does Bad Science on Covid’s Origin Get Hyped?'' in a New York Times newsletter\footnote{David Wallace-Wells; \url{https://www.nytimes.com/2023/05/03/opinion/covid-origin-science.html}.}). 
+
+Even if there had been good reasons to conduct such a correlation analysis at the scale of the whole market, there are substantial issues with the way it is done in \citet{Bloom2023VE}.
+
+\subsection{Temporal and spatial structures in the data cannot be omitted}
+
+The unbalanced sequencing design in the data shared by \citet{Liu2023Nature} precludes any market-wide analysis. The Huanan market was sampled multiple times; all samples were tested by PCR for \sct{}, and only a fraction were subjected to metagenomic sequencing. The fraction and characteristics of the samples that were sequenced varied over time. The first collection trip, on January 1st 2020, focused on stalls with human cases, and only samples positive by PCR were then sequenced. The second collection trip, on January 12th 2020, focused on wildlife stalls; an equal number of samples were collected from each stall, and all were sequenced irrespective of PCR positivity. For later trips, only a fraction of samples were sequenced, both PCR positive and PCR negative. Later trips also included samples from outside the market (including warehouses related to the market; sewage around the market). The proportion of \sct{} positive samples among the sequenced samples therefore widely varied over time, as did the composition of animal species (wildlife stalls had different species than other stalls in the market). It is therefore incorrect to present correlation analyses mixing up data from all sampling trips, as is done in most of \citet{Bloom2023VE}'s article. Mixing up these data leads to instances of Simpson's paradox: some correlations substantially change once the time structure is taken into account \citep[Figure~S4]{ACC2023bioRxiv}.
+
+One subset of the data can be considered as balanced. All samples collected on January 12th 2020 were sequenced, irrespective of \sct{} PCR positivity; ten samples were collected in each of the seven stalls identified as selling wildlife. Because these samples were collected late, however, \sct{} reads are rare: six samples are positive, with five in the same stall (``stall A'' in \citet{ACC2023bioRxiv}). There are 1, 2, 2, 5, and 7 reads in the positive samples from stall A, and 5 reads from the positive samples from stall B; 0 reads in the 64 other samples collected on January 12th 2020. It does not make much sense to compute a correlation with such data. However, if we do it, humans are not significantly associated with \sct{} (log proportions of total reads; \JBTwelfthSCHS{}; data: \citet{Bloom2023VE} from inside the market; see Table~\ref{tab:summarycor}). Raccoon dogs are not significantly associated either (\JBTwelfthSCRD{}). A correlation analysis on this subset of data therefore does not exclude raccoon dogs as potential source, and does not identify humans as potential source.
+
+
+\begin{table}
+{\small
+\def \sepline {0.75em}
+\begin{tabular}{c  c  c  c  l}
+\bf Virus & \bf Host & \bf Dates & \bf Dataset & \bf Result \\ \hline
+\multirow{2}{*}{\sct{}} & \multirow{2}{*}{Human} & \multirow{2}{*}{Jan 12} & ACC & \ACCTwelfthSCHS{} \\
+&&& JB &  \JBTwelfthSCHS{} \\[\sepline]
+%\hline
+\multirow{2}{*}{\sct{}} & \multirow{2}{*}{Raccoon dog} & \multirow{2}{*}{Jan 12} & ACC & \ACCTwelfthSCRD{} \\
+&&& JB &  \JBTwelfthSCRD{} \\[\sepline]
+%\hline
+\multirow{3}{*}{\sct{}} & \multirow{3}{*}{Human} & \multirow{3}{*}{Jan 01} & ACC & \ACCFirstSCHS{} \\
+&&& JB &  \JBFirstSCHS{} \\
+&&& JB2 &  \JBFirstSCHStwo{} \\[\sepline]
+%
+\multirow{3}{*}{\sct{}} & Spotted bass& \multirow{3}{*}{Jan 01} & ACC & \ACCFirstSCSB{} \\
+& \multirow{2}{*}{Largemouth bass} && JB &  \JBFirstSCLB{} \\
+& && JB2 &  \JBFirstSCLBtwo{} \\
+[\sepline]
+%\hline
+\multirow{1}{*}{H3N2} & \multirow{1}{*}{Human} & \multirow{1}{*}{all} & ACC & \ACCAllHNHS{} \\[\sepline] %\hline
+\end{tabular}
+}
+\caption{Pearson correlations between viruses and potential hosts, computed on log proportions of total reads. Zero reads are converted to the half minimum possible proportion. ACC: \citet{ACC2023bioRxiv}; JB: \citet{Bloom2023VE}; JB2:  \citet{Bloom2023VE} without samples F13 and F54. }
+\label{tab:summarycor}
+\end{table}
+
+
+Consideration of the spatial and temporal structure of the samples helps confirm their positive or negative status. In his article, \citet{Bloom2023VE} emphasized the low number of reads in sample Q61 (``1 of ~200,000,000 reads''), and stressed the lack of significant difference between 1 read in Q61 vs. 0 reads in E-10-29-2. This result was widely interpreted as Q61 being a false positive. Bloom's analysis however neglected the context in which the samples were collected. When taking into account the spatial and temporal structure of the data, Q61 is clearly positive. The maximum number of \sct{} reads in the other samples collected on January 12th 2020 is 7, i.e. also very low. Out of the six positive samples collected on that date, five including Q61 come from the very same stall, and three of them were positive by PCR \citep{ACC2023bioRxiv}. Finally, Q61 was also clearly identified as positive in January 2020 by China CDC \citep{Wu2020CCDC}. Even though it only contained one \sct{} read, Q61 is positive. Likewise, sample E-10-29-2 is clearly negative: no sample from inside the market was tested positive by PCR or sequencing on the date it was collected (February 20th 2020) nor after, and no other sample in the stall and adjacent locations was ever tested positive either. Even though a chi-squared test on the proportions of reads in Q61 vs. E-10-29-2 is non significant, their spatial and temporal contexts confirm the results. 
+
+\subsection{Criteria excluding raccoon dogs as hosts also exclude humans}
+
+\Citet{Bloom2023VE} argued that only one sample (Q61) had a substantial proportion of raccoon dog reads and any presence of \sct{}, ``substantial'' being defined as at least 20\% of chordate reads. In the previous section, I explained why this sample is clearly \sct{}-positive in spite of its very low number of reads; here I focus on the choice of criteria to call a proportion of reads of a given species ``substantial''. After these criteria had been pointed out, Jesse Bloom argued that the threshold had been chosen to produce a table of reasonable length; yet the argument remained in the abstract. Twenty percent of chordate reads is a very stringent threshold. If we apply the same threshold to human reads on Bloom's data, then among the 33 samples from inside the market with \sct{} reads, only eight have at least 20\% of chordate reads belonging to \textit{Homo sapiens}. Among these six samples, five are from stalls with human cases on the map of the Joint China-WHO mission \citep{WHO2021}, two are in stalls with human cases on another map produced by CCDC \citep{Koopmans2021BMJ}, and one is next to stalls with human cases on this other map. Twenty-five other samples from inside the market contain \sct{} reads but less than 20\% human reads among chordates reads. Yet \sct{} in at least one of these is almost certainly of human origin: sample B5 comes from a stall with two to three cases, \sct{} was so abundant in the sample that a full sequence could be assembled, which matches the reference sequence. In spite of this clear association with a human case, the percentage of human reads in this sample is 0.12\%.
+ 
+Market-wide correlations do not identify humans as hosts either. In the text of the article, Bloom highlights the negative correlation between raccoon dog reads and SARS-CoV-2 reads. As already explained, correlations on all samples are plagued by the fact that the sampling and sequencing strategies changed over time, and Simpson's paradox is at play. Focusing on a homogeneous subset of the data, collected on January 12th, I also already pointed out that correlations were not statistically significant for raccoon dogs nor for humans. We can additionally consider the January 1st data: this first trip focused on stalls with human cases; only samples positive by PCR were sequenced. Even on this subset of data for which humans were the likely source of potentially all SARS-CoV-2 viruses, the correlation is not significant for humans (\JBFirstSCHS{}; data: \citet{Bloom2023VE}). Finally, \citet{Bloom2023VE} highlighted a high positive correlation between \sct{} and a fish species, largemouth bass. This non-sensical result by itself illustrated that market-wide correlations cannot identify hosts. We however need to note that the result was largely driven by the exclusion of two samples, F13 and F54. Once these metagenomic samples are added back, the correlation is much weaker and non-significant (see Table~\ref{tab:summarycor}). 
+
+\section{Discussion}
+There are major scientific issues with the original results presented in \citet{Bloom2023VE}. The market-wide correlations on all samples from all locations and at all dates lump together data that cannot be analyzed together, because the samples were collected with different purposes and sequenced for different reasons. The correlation values are therefore uninterpretable, and many of these values are affected by an instance of Simpson's paradox: they change once structure in the data is taken into account. Many of the values put forward are actually not statistically significant. The criteria that are applied to non-human animals are so stringent that they would exclude humans as a source of \sct{} in many samples. Finally, the discussion of the \sct{}-positive or -negative nature of some samples ignores the spatial and temporal structure of the data.
+  
+There is also a major issue with the presentation of the motivation for the study. Contrary to what is written in \citet{Bloom2023VE}, and as previously highlighted in a reply to the first version of the preprint of this work\footnote{See \cref{foot:reply}.}, it was not suggested that it would be valuable to reproduce \citet{Liu2022RS}'s Figure~4A. It was obvious before doing it that such an approach would not identify an animal host -- not to mention the odd choice of plotting a correlation of correlations. In addition, \citet{Bloom2023VE} does not contradict news reports on ``co-mingling'' of SARS-CoV-2 and raccoon dogs, because these articles were focused on one stall, which was clearly positive for \sct{}, while Bloom's study is at the scale of the whole market. In the news articles criticized by Bloom, none of the interviewed collaborators of \citet{ACC2023Zenodo} mentioned co-presence of \sct{} and raccoon dogs at the scale of the whole market. 
+ 
+The metagenomic sequence data from the Huanan market are observational: by nature, they cannot prove any hypothesis. They could however disprove hypotheses if they were shown to be incompatible. Before the contents of these data were revealed, falsifiable predictions had been made: 
+
+\textit{i) If the origin is at the market, then lineage A should be in the market.}
+Early SARS-CoV-2 sequences were grouped into two lineages, A and B, separated by two characteristic mutations. Initially however, lineage A had not been associated with the market. Absence of evidence is not evidence of absence, so this absence of detection did not disprove a market origin, but it was nevertheless seen as a serious limitation for a single Huanan market-origin scenario \citep{Zhang2020Nature, Bloom2021MBE}. \Citet{Worobey2022Zenodo} had predicted that, given the location of the two earliest publicly known lineage A cases, lineage A had to be in the market. \Citet{Liu2022RS} revealed that lineage A was indeed in the market, found in sample A20, which independently validated the prediction.
+
+\textit{ii) If the virus comes from infected animals, then there should be human infections and positive environmental samples near stalls selling animals.} 
+Most cases are from the West side of the market, and it was recognized as early as January 2020 that this was where wildlife stalls were. The details published by \citet{Liu2023Nature} on the numbers of samples collected in each stall, and the associated PCR and sequencing results, allowed the identification of a positivity hotspot in the market, controlling for sampling effort \citep{ACC2023bioRxiv}. This result rebutted the claim that more positive samples had been found in the south-west corner of the West side because more samples had been collected there.
+
+\textit{iii) If the virus comes from infected animals, then there should exist stalls in which the genetic materials of SARS-CoV-2 and of susceptible animals are detectable together.} 
+This prediction was also confirmed by the metagenomic sequence data from the Huanan market. Strikingly, the stall (stall A) in which susceptible animals and \sct{} are detected together happens to be next to the positivity hotspot. 
+
+Predictions ii) and iii) could have been disproved by the Huanan market data. Positive samples or cases could have been predominantly in the East side of the market. Susceptible animals could have been totally disjoint from \sct{}, as is the case a few streets up stall A, where wildlife was sold but no \sct{} was detected, even though the stalls were heavily sampled \citep{Liu2023Nature, ACC2023bioRxiv}.
+
+An animal origin does not imply that all \sct{} in the market was shed by (non-human) animals, nor that all humans were infected by animals. \Citet{Bloom2023VE} cited \citep{CORibera2022ER} as an alternative interpretation of \citet{Liu2022RS}'s data. This article proposes that the toilets or a mahjong room, both in the South-West corner of the West side of the market, were locations where human-to-human transmission took place. It is important to note that these suggestions are not incompatible with an animal origin –- quite the contrary actually. Most \sct{} detected in the market was shed by humans, and most humans were infected by other humans. A fraction of these infections can have taken place in places where people gathered, without precluding in any way the fact that a couple of people may have been initially infected by animals. The news article\footnote{ 
+Jeremy Page, Wenxin Fan and Natasha Khan, \textit{How It All Started: China’s Early Coronavirus Missteps}; \url{https://www.wsj.com/articles/how-it-all-started-chinas-early-coronavirus-missteps-11583508932}} at the origin of the suggestion that toilets may have played a role in transmission is actually even a good argument for an origin linked to the wildlife trade in the market, when the quote is read in full (emphasis added): ``Looking back, Ms.\ [W.] thinks she might have been infected via the \textit{toilet she shared with the wild meat sellers} and others on the market's west side.''.
+
+Proving that non-human animals were infected would not prove that \sct{} first entered the Huanan market inside of non-human animals. It could still be argued, as is done in \citet{Liu2023Nature} and \citet{Bloom2023VE} that the animals could have been infected by humans. Likewise, it can be argued that the detection of \sct{} on a cage could be from a human coughing on the cage, and not from an animal inside of it. At some point however, making sense of all the available data -- including a feature not discussed yet, the distribution of early cases around the market \citep{Worobey2022Science} -- becomes unreasonably difficult under a lab leak scenario. It then becomes necessary to invoke deliberately hidden data, as is done in \citet{Bloom2023VE} with the reference to Hvistendahl \& Mueller's news article\footnote{Mara Hvistendahl and Benjamin Mueller, \textit{Chinese Censorship Is Quietly Rewriting the Covid-19 Story}; \url{https://www.nytimes.com/2023/04/23/world/europe/chinese-censorship-covid.html}}. This reference does not only amount to suggesting that the Chinese government is withholding data, but also that Chinese scientists are hiding or manipulating such data in their own papers. 
+
+To conclude, the metagenomic data from the Huanan market cannot by nature prove that a non-human animal was infected, and it was known before even conducting it that a market-wide correlation analysis on these data would not prove it either. \citet{ACC2023Zenodo} did not pretend it would be the case. In addition, \citet{Bloom2023VE}'s analysis had substantial scientific issues. The article listed ``lab leak'' as a keyword, even though the Huanan market data do not directly inform this other hypothesis. Whether or not keeping the discussion alive was the intention of the article, this was its outcome in the media. Maybe such aims are better served by Op-Eds, rather than by conducting a study doomed to fail to argue that nothing can be concluded from a dataset. The metagenomic sequencing data from Huanan market samples are among the most precious and insightful datasets related to the origin of the pandemic shared by Chinese researchers. Even though they were shared late, we should be grateful that these data exist and are now publicly available.        
+
+\section{Methods}
+I downloaded analysis results by \citet{Bloom2023VE} (\url{https://github.com/jbloom/Huanan_market_samples}) and by \citet{ACC2023bioRxiv} (\url{https://github.com/sars-cov-2-origins/huanan-market-environment}). I excluded samples from outside the market: sewage from surrounding areas, and warehouses, because \sct{} in such samples can have been deposited after the closure of the Huanan market. I also excluded samples corresponding to amplicon-based \sct{} whole genome sequecing. I kept all samples from the Huanan market and subjected to metagenomic sequencing.  
+
+The \texttt{cor.test} function in R was used to compute correlations, confidence intervals, $p$ values.
+
+
+\bibliographystyle{bibstyle}
+\bibliography{biblio_clean}
+
+
+
+\end{document}
