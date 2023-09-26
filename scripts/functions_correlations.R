@@ -7,22 +7,20 @@ corBoot <- function(x, y, method, nboot){
   # method: "pearson" or "spearman" or "theil-sen"
   # nboot: number of resampling
   corResample <- function(x, y, method = method){
-    out <- NA
-    while(is.na(out)){ # Re-draw if leads to sd = 0
       # Draw positions with replacement
       ii <- sample(seq_along(x), size = length(x), replace = TRUE)
-      if(method != "theil-sen"){
-        # Compute correlation on the new vectors
-        # Sometimes sd = 0; remove warnings
-        out <- suppressWarnings(cor(x[ii], y[ii], method = method))
+      # If no variance, cor = 0
+      if((var(x[ii]) == 0) | var(y[ii]) == 0){
+        out <- 0
       }else{
-        if((var(x[ii]) == 0) | var(y[ii]) == 0){
-          out <- NA
+        if(method != "theil-sen"){
+          # Compute correlation on the new vectors
+          # Sometimes sd = 0; remove warnings
+          out <- suppressWarnings(cor(x[ii], y[ii], method = method))
         }else{
           out <- theilSen_r(x[ii], y[ii])
         }
       }
-    }
     out
   }
   vout <- replicate(nboot, corResample(x, y, method = method))
@@ -219,5 +217,5 @@ ww <- function(i, dd, parms){
   wrapperCor(data = dd, virus = parms$virus[i], animal = parms$animal[i], 
              remove0.x = FALSE, remove0.y = FALSE, log = TRUE, 
              prop = TRUE, denomType = "all", 
-             method = "pearson", plot = FALSE, bootstrap = FALSE)$cr
+             method = "pearson", plot = FALSE, bootstrap = TRUE)$cr
 }

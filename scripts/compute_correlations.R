@@ -12,8 +12,8 @@ source("functions_correlations.R")
 # Compute all correlations #### 
 
 # Combinations of parameters
-viruses <- c("SARS-CoV-2", "Influenza A virus H3N2", "Bamboo rat circovirus", "Bamboo rat coronavirus", "Raccoon dog amdovirus", "Civet astrovirus", "Civet kobuvirus", "Myocastor coypus polyomavirus 1")
-viruses <- unique(viral$Virus_shorter)
+viruses <- c("SARS-CoV-2", "Influenza A virus H3N2", "Bamboo rat coronavirus", "Raccoon dog amdovirus", "Civet kobuvirus")
+#viruses <- unique(viral$Virus_shorter)
 parms <- expand.grid(virus = viruses, animal = chordates, 
                      stringsAsFactors = FALSE)
 
@@ -39,8 +39,8 @@ formatRes <- function(res, parms){
   resdf$corsCI2 <- unlist(lapply(res, function (x) x$conf.int[2]))
   resdf$pval <- unlist(lapply(res, function (x) x$p.value))
   resdf$commonName <- dicoSp[resdf$animal]
-  #resdf$bootCI1 <- unlist(lapply(res, function (x) x$`bootCI.2.5%`))
-  #resdf$bootCI2 <- unlist(lapply(res, function (x) x$`bootCI.97.5%`))
+  resdf$bootCI1 <- unlist(lapply(res, function (x) x$`bootCI.2.5%`))
+  resdf$bootCI2 <- unlist(lapply(res, function (x) x$`bootCI.97.5%`))
   resdf
 }
 
