@@ -1,0 +1,9 @@
+*.aux
+*.blg
+*.log
+*.out
+*/texput.log
+*/*.synctex.gz
+
+*/refsBloom.bib
+*/biblio.bib
