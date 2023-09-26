@@ -214,7 +214,7 @@ wrapperCor <- function(dataset, virus, animal, remove0.x = FALSE, remove0.y = FA
 }
 
 
-# Another wrapper
+# Another wrapper to be used with lapply
 ww <- function(i, dd, parms){
   wrapperCor(data = dd, virus = parms$virus[i], animal = parms$animal[i], 
              remove0.x = FALSE, remove0.y = FALSE, log = TRUE, 

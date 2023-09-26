@@ -1,3 +1,5 @@
+# Script to load and format the data
+
 # Initializations ####
 
 # Install package for Theil-Sen correlation
@@ -86,4 +88,3 @@ mammals <- mammals[mammals != "Chlorocebus.sabaeus"]
 # Define color palette
 colS <- "black" # Significant
 colNS <- gray(0.6) # Non significant
-

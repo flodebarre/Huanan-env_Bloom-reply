@@ -1,3 +1,6 @@
+# Compute correlations cited in the article
+# Exports a .tex file in the paper/ folder.
+
 # Load data ####
 source("load_data.R")
 
@@ -67,7 +70,6 @@ tmp <- wrapperCor(data[data$Sampling.date == "2020-01-01", ], virus = "SARS-CoV-
 latex <- rbind(latex, paste("\\def \\ACCFirstSCSB {", tmp$txt, "}", sep = ""))
 
 write(latex, "../paper/commands_outputR.tex")
-
 
 # View some Theil-Sen results ####
 # -> Super wide CIs!

@@ -1,14 +1,19 @@
+# Compute proportions of given species among chordate reads, 
+# in JB's data, and order them. 
+
 # Load data ####
 
 source("load_data.R")
 
-# Compute total reads chordates 
+# Computations ####
+
+# Compute total reads chordates
 tmp <- dataJB[dataJB$species != "SARS-CoV-2", ]
 agg <- aggregate(x = as.numeric(tmp$aligned_reads), by = list(Sample.ID = tmp$Sample.ID), FUN = sum)
 names(agg)[names(agg) == "x"] <- "tot_reads_chordates"
 dataJB <- merge(dataJB, agg, all.x = TRUE)
 
-# Compute proportion RD in Chordates
+# Compute proportion of a given species' reads among Chordates
 computeProportionSpecies <- function(species = "Nyctereutes procyonoides", proportion = 0.2){
 
   # Data for the species
@@ -40,11 +45,12 @@ computeProportionSpecies <- function(species = "Nyctereutes procyonoides", propo
        table.all = table(speciesProp = dataJBspecies$prop.total > proportion, SC2 = dataJBspecies$SARS2.reads > 0))
 }
 
+# Compute for Raccoon dogs
 RD <- computeProportionSpecies("Nyctereutes procyonoides", 0.2)
 RD
 write.csv(RD$prop.chordates, file = "../results/prop-chordates_raccoon-dog.csv", row.names = FALSE)
 
-
+# Compute for humans
 HS <- computeProportionSpecies("Homo sapiens", 0.2)
 HS
 write.csv(HS$prop.chordates, file = "../results/prop-chordates_human.csv", row.names = FALSE)

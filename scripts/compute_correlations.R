@@ -1,3 +1,6 @@
+# Compute correlations for combinations of viruses, hosts, date ranges
+# (Not used in the paper but kept for legacy)
+
 # Load data ####
 
 source("load_data.R")

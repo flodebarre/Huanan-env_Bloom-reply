@@ -1,4 +1,8 @@
+# Plot the correlations for specific viruses and date ranges
+# (Not used in the paper but kept for legacy)
+
 # Load results ####
+
 ACC1.all <- read.csv(file = "../results/corACC1_all.csv")
 ACC1.Jan01 <- read.csv(file = "../results/corACC1_Jan01.csv")
 ACC1.Jan12 <- read.csv(file = "../results/corACC1_Jan12.csv")
@@ -17,8 +21,10 @@ ACC1.all[ACC1.all$virus == "Influenza A virus H3N2" & ACC1.all$animal == "Homo.s
 source("load_data.R")
 
 # Plotting ####
+
 ## |- Function to plot the results by virus ####
 
+# Plotting parameters
 wimage <- 4
 himage <- 7
 resimage <- 300
@@ -83,10 +89,13 @@ plotByVir <- function(vir, resdf, onlyMammals = TRUE, onlyBirds = FALSE, colSign
   
   if(png | pdf){
     dev.off()
-    system(paste0("open ", fname, "*"))
+#    system(paste0("open ", fname, "*")) # (only works on MacOS)
   }
-  }; plotByVir("SARS-CoV-2", ACC1.all, tit = ", all dates, Mammals, ACC data", pdf = TRUE)
+  }
 
+## |- Plotting! ####
+
+plotByVir("SARS-CoV-2", ACC1.all, tit = ", all dates, Mammals, ACC data", pdf = TRUE)
 plotByVir("SARS-CoV-2", ACC1.Jan01, tit = ", 01 Jan 2020, Mammals, ACC data")
 plotByVir("SARS-CoV-2", ACC1.Jan12, tit = ", 12 Jan 2020, Mammals, ACC data")
 plotByVir("SARS-CoV-2", ACC1.Jan0112, tit = ", 01-12 Jan 2020, Mammals, ACC data")
@@ -101,11 +110,12 @@ plotByVir("SARS-CoV-2", JB1.Jan12, onlyMammals = FALSE, latin = TRUE, tit = ", 1
 plotByVir("SARS-CoV-2", JB1.Jan0112, onlyMammals = FALSE, latin = TRUE, tit = ", 01 and 12 Jan 2020, Bloom's data")
 plotByVir("SARS-CoV-2", JB1.all, onlyMammals = FALSE, latin = TRUE, tit = ", all dates, Bloom's data")
 
-plotByVir("Influenza A virus H3N2", ACC1.all, tit = ", all dates")
+plotByVir("Influenza A virus H3N2", ACC1.all, tit = ", all dates, Mammals")
+plotByVir("Influenza A virus H3N2", ACC1.all, tit = ", all dates", onlyMammals = FALSE)
 
-plotByVir("Raccoon dog amdovirus", ACC1.all)
-plotByVir("Civet kobuvirus", ACC1.all)
-plotByVir("Bamboo rat coronavirus", ACC1.all)
+plotByVir("Raccoon dog amdovirus", ACC1.all, ", all dates")
+plotByVir("Civet kobuvirus", ACC1.all, ", all dates")
+plotByVir("Bamboo rat coronavirus", ACC1.all, ", all dates")
 
 plotByVir("Raccoon dog amdovirus", ACC1.Jan12, tit = ", 12 Jan 2020")
 plotByVir("Civet kobuvirus", ACC1.Jan12, tit = ", 12 Jan 2020")
@@ -113,5 +123,3 @@ plotByVir("Bamboo rat coronavirus", ACC1.Jan12, tit = ", 12 Jan 2020")
 
 plotByVir("Civet astrovirus", ACC1.all)
 plotByVir("Civet astrovirus", ACC1.Jan12, tit = ", 12 Jan 2020")
-
-
