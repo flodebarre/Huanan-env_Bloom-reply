@@ -1,4 +1,11 @@
-\begin{thebibliography}{23}
+\begin{thebibliography}{24}
+
+\bibitem[{{Babarlelephant} {\em et~al.\/}}(2022){{Babarlelephant},
+  {Engineer2The}, {Drinkwater5Reed}, {\rm and}
+  {FranciscoDeAsis}}]{Babar2022Zenodo}
+{{Babarlelephant}, {Engineer2The}, {Drinkwater5Reed}, {FranciscoDeAsis}}. 2022.
+  On some unpublished early {{SARS-CoV-2}} sequences.
+  \url{https://zenodo.org/record/6672912}.
 
 \bibitem[{Bloom}(2021)]{Bloom2021MBE}
 {Bloom JD}. 2021. Recovery of {{Deleted Deep Sequencing Data Sheds More Light}}
