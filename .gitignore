@@ -5,5 +5,7 @@
 */texput.log
 */*.synctex.gz
 
+*/.DS_Store
+
 */refsBloom.bib
 */biblio.bib
