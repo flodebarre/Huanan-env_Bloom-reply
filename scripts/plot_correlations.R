@@ -1,5 +1,4 @@
 # Plot the correlations for specific viruses and date ranges
-# (Not used in the paper but kept for legacy)
 
 # Run computations if needed ####
 
